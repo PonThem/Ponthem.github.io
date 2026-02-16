@@ -1,224 +1,283 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Senior SRE | AI Infrastructure Specialist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ["Inter", "system-ui", "sans-serif"],
+                        mono: ["Fira Code", "ui-monospace", "monospace"],
+                    },
+                    colors: {
+                        slateNight: "#0d1117",
+                        cyberBlue: "#38bdf8",
+                        cyberGreen: "#22c55e",
+                    },
+                    boxShadow: {
+                        glass: "0 0 0 1px rgba(56, 189, 248, 0.2), 0 12px 40px rgba(13, 17, 23, 0.55)",
+                        glowBlue: "0 0 20px rgba(56, 189, 248, 0.45)",
+                        glowGreen: "0 0 20px rgba(34, 197, 94, 0.45)",
+                    },
+                },
+            },
+        };
+    </script>
     <style>
-        /* --- CSS VARIABLES & RESET --- */
-        :root {
-            --bg-color: #0d1117; /* GitHub Dark Dimmed */
-            --card-bg: #161b22;
-            --text-main: #c9d1d9;
-            --text-highlight: #58a6ff; /* GitHub Blue */
-            --accent: #238636; /* GitHub Green */
-            --border: #30363d;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-        }
-
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
+            background: #0d1117;
+            color: #e2e8f0;
         }
 
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-        ul { list-style: none; }
-
-        /* --- LAYOUT UTILITIES --- */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
+        #networkCanvas {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.45;
         }
 
-        section {
-            padding: 60px 0;
-            border-bottom: 1px solid var(--border);
+        .glass-card {
+            background: linear-gradient(
+                135deg,
+                rgba(15, 23, 42, 0.65),
+                rgba(2, 132, 199, 0.07)
+            );
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 30px;
-            color: var(--text-highlight);
+        .terminal-cursor::after {
+            content: "_";
+            color: #22c55e;
+            margin-left: 0.1em;
+            animation: blink 1s steps(2, start) infinite;
         }
 
-        /* --- HERO SECTION --- */
-        .hero {
-            text-align: center;
-            padding: 100px 0;
-        }
-
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 4px solid var(--text-highlight);
-            margin-bottom: 20px;
-            object-fit: cover;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #8b949e;
-            max-width: 600px;
-            margin: 0 auto 30px auto;
-        }
-
-        .social-links a {
-            font-size: 1.5rem;
-            margin: 0 10px;
-            color: var(--text-main);
-        }
-
-        .social-links a:hover { color: var(--text-highlight); }
-
-        /* --- SKILLS SECTION --- */
-        .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .skill-tag {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
-
-        /* --- PROJECTS SECTION --- */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .project-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 20px;
-            transition: transform 0.2s;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--text-highlight);
-        }
-
-        .project-card h3 { margin-bottom: 10px; }
-        .project-card p { font-size: 0.9rem; color: #8b949e; margin-bottom: 15px; }
-        
-        .btn {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: var(--accent);
-            color: white;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .btn:hover { background-color: #2ea043; }
-
-        /* --- FOOTER --- */
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            color: #8b949e;
-            font-size: 0.9rem;
+        @keyframes blink {
+            to {
+                visibility: hidden;
+            }
         }
     </style>
 </head>
-<body>
+<body class="font-sans min-h-screen antialiased">
+    <canvas id="networkCanvas" aria-hidden="true"></canvas>
 
-    <header class="hero">
-        <div class="container">
-            <img src="https://via.placeholder.com/150" alt="Profile Photo" class="profile-img">
-            
-            <h1>[Your Name]</h1>
-            <p>Full Stack Developer | Open Source Enthusiast | Tech Writer</p>
-            
-            <div class="social-links">
-                <a href="https://github.com/yourusername"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com/in/yourusername"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:you@example.com"><i class="fas fa-envelope"></i></a>
-            </div>
-        </div>
-    </header>
-
-    <section id="about">
-        <div class="container">
-            <h2>About Me</h2>
-            <p>
-                Hello! I'm a passionate developer based in [Location]. I love building things for the web. 
-                I specialize in creating high-quality websites and applications. When I'm not coding, 
-                you can find me [Hobby 1] or [Hobby 2].
-            </p>
-        </div>
-    </section>
-
-    <section id="skills">
-        <div class="container">
-            <h2>Skills</h2>
-            <div class="skills-grid">
-                <span class="skill-tag">HTML5</span>
-                <span class="skill-tag">CSS3</span>
-                <span class="skill-tag">JavaScript</span>
-                <span class="skill-tag">Python</span>
-                <span class="skill-tag">React</span>
-                <span class="skill-tag">Git</span>
-                <span class="skill-tag">SQL</span>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects">
-        <div class="container">
-            <h2>Projects</h2>
-            <div class="project-grid">
-                
-                <div class="project-card">
-                    <h3>Project Name 1</h3>
-                    <p>A brief description of what this project does and the tech stack used.</p>
-                    <a href="#" class="btn">View Code</a>
+    <main class="mx-auto max-w-6xl px-5 py-8 sm:px-8 lg:px-10">
+        <header class="glass-card rounded-3xl p-6 shadow-glass sm:p-10">
+            <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+                <div class="max-w-2xl space-y-5">
+                    <p class="font-mono text-sm uppercase tracking-[0.2em] text-cyberBlue">
+                        Taiwan | Senior Site Reliability Engineer
+                    </p>
+                    <h1 id="typingHeadline" class="terminal-cursor font-mono text-3xl font-bold leading-tight text-slate-100 sm:text-4xl lg:text-5xl"></h1>
+                    <p class="text-base text-slate-300 sm:text-lg">
+                        Senior SRE specializing in Kubernetes, Azure AI, and large-scale infrastructure.
+                    </p>
+                    <div class="flex flex-wrap gap-3 pt-1">
+                        <span class="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-1.5 text-sm text-cyan-300">Kubernetes</span>
+                        <span class="rounded-full border border-green-400/30 bg-green-400/10 px-4 py-1.5 text-sm text-green-300">Azure AI</span>
+                        <span class="rounded-full border border-slate-300/20 bg-slate-300/5 px-4 py-1.5 text-sm text-slate-300">Infrastructure at Scale</span>
+                    </div>
                 </div>
-
-                <div class="project-card">
-                    <h3>Project Name 2</h3>
-                    <p>A cool automation tool built with Python to scrape data.</p>
-                    <a href="#" class="btn">View Code</a>
+                <div class="grid grid-cols-2 gap-3 text-sm text-slate-300 sm:w-[320px]">
+                    <div class="glass-card rounded-2xl p-4">
+                        <p class="font-mono text-cyberGreen">Uptime Focus</p>
+                        <p class="mt-2 text-slate-200">Resilient systems by design</p>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4">
+                        <p class="font-mono text-cyberBlue">AI Infra</p>
+                        <p class="mt-2 text-slate-200">Reliable ML platform delivery</p>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4">
+                        <p class="font-mono text-cyberBlue">Automation</p>
+                        <p class="mt-2 text-slate-200">Build once, scale repeatedly</p>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4">
+                        <p class="font-mono text-cyberGreen">Ops Strategy</p>
+                        <p class="mt-2 text-slate-200">SLO-driven engineering</p>
+                    </div>
                 </div>
-
-                <div class="project-card">
-                    <h3>Project Name 3</h3>
-                    <p>A personal dashboard application using React and Firebase.</p>
-                    <a href="#" class="btn">View Code</a>
-                </div>
-
             </div>
-        </div>
-    </section>
+        </header>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 [Your Name]. Built with HTML & CSS.</p>
-        </div>
-    </footer>
+        <section id="about" class="mt-8">
+            <div class="glass-card rounded-3xl p-6 shadow-glass sm:p-8">
+                <h2 class="font-mono text-2xl font-semibold text-cyberBlue sm:text-3xl">About Me</h2>
+                <p class="mt-5 text-slate-300">
+                    Expert in K8s, Java, Spring Boot, and Node.js.
+                </p>
+                <p class="mt-4 text-slate-300">
+                    When I'm not managing clusters, I'm watching Chinese animation or analyzing strategies for the AG esports team in Honor of Kings.
+                </p>
+            </div>
+        </section>
 
+        <section id="skills" class="mt-8">
+            <div class="glass-card rounded-3xl p-6 shadow-glass sm:p-8">
+                <h2 class="font-mono text-2xl font-semibold text-cyberBlue sm:text-3xl">Skills Grid</h2>
+                <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+                    <div class="group rounded-2xl border border-slate-400/20 bg-slate-900/40 p-4 text-center transition duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:shadow-glowBlue">
+                        <i class="fa-solid fa-dharmachakra text-2xl text-cyan-300 transition group-hover:text-cyan-200"></i>
+                        <p class="mt-2 text-sm text-slate-200">Kubernetes</p>
+                    </div>
+                    <div class="group rounded-2xl border border-slate-400/20 bg-slate-900/40 p-4 text-center transition duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:shadow-glowBlue">
+                        <i class="fa-brands fa-docker text-2xl text-cyan-300 transition group-hover:text-cyan-200"></i>
+                        <p class="mt-2 text-sm text-slate-200">Docker</p>
+                    </div>
+                    <div class="group rounded-2xl border border-slate-400/20 bg-slate-900/40 p-4 text-center transition duration-300 hover:-translate-y-1 hover:border-green-300/60 hover:shadow-glowGreen">
+                        <i class="fa-brands fa-java text-2xl text-green-300 transition group-hover:text-green-200"></i>
+                        <p class="mt-2 text-sm text-slate-200">Java</p>
+                    </div>
+                    <div class="group rounded-2xl border border-slate-400/20 bg-slate-900/40 p-4 text-center transition duration-300 hover:-translate-y-1 hover:border-green-300/60 hover:shadow-glowGreen">
+                        <i class="fa-brands fa-python text-2xl text-green-300 transition group-hover:text-green-200"></i>
+                        <p class="mt-2 text-sm text-slate-200">Python</p>
+                    </div>
+                    <div class="group rounded-2xl border border-slate-400/20 bg-slate-900/40 p-4 text-center transition duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:shadow-glowBlue">
+                        <i class="fa-brands fa-microsoft text-2xl text-cyan-300 transition group-hover:text-cyan-200"></i>
+                        <p class="mt-2 text-sm text-slate-200">Azure</p>
+                    </div>
+                    <div class="group rounded-2xl border border-slate-400/20 bg-slate-900/40 p-4 text-center transition duration-300 hover:-translate-y-1 hover:border-green-300/60 hover:shadow-glowGreen">
+                        <i class="fa-solid fa-layer-group text-2xl text-green-300 transition group-hover:text-green-200"></i>
+                        <p class="mt-2 text-sm text-slate-200">Terraform</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="mt-8">
+            <div class="glass-card rounded-3xl p-6 shadow-glass sm:p-8">
+                <h2 class="font-mono text-2xl font-semibold text-cyberBlue sm:text-3xl">Projects</h2>
+                <div class="mt-6 grid gap-5 md:grid-cols-2">
+                    <article class="rounded-2xl border border-slate-400/20 bg-slate-900/40 p-6 transition duration-300 hover:border-cyan-300/60 hover:shadow-glowBlue">
+                        <h3 class="font-mono text-xl font-semibold text-slate-100">AI Game News Agent</h3>
+                        <p class="mt-3 text-slate-300">
+                            A Python-based agent that scrapes and summarizes global game and anime news, delivering concise and relevant updates.
+                        </p>
+                        <p class="mt-4 inline-flex rounded-full border border-cyan-300/30 bg-cyan-400/10 px-3 py-1 text-xs uppercase tracking-wide text-cyan-200">
+                            Python Agent
+                        </p>
+                    </article>
+                    <article class="rounded-2xl border border-slate-400/20 bg-slate-900/40 p-6 transition duration-300 hover:border-green-300/60 hover:shadow-glowGreen">
+                        <h3 class="font-mono text-xl font-semibold text-slate-100">K8s Cluster Autoscaler</h3>
+                        <p class="mt-3 text-slate-300">
+                            A custom implementation for optimizing cluster resource usage, balancing reliability, cost, and performance at scale.
+                        </p>
+                        <p class="mt-4 inline-flex rounded-full border border-green-300/30 bg-green-400/10 px-3 py-1 text-xs uppercase tracking-wide text-green-200">
+                            Kubernetes Engineering
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <footer class="mt-8 pb-6 text-center text-sm text-slate-400">
+            <p class="font-mono text-slate-500">Built for reliability in production environments.</p>
+            <p class="mt-1">© 2026 Senior SRE & AI Infrastructure Specialist</p>
+        </footer>
+    </main>
+
+    <script>
+        (function typingEffect() {
+            const text = "Engineering Reliability in an AI World.";
+            const target = document.getElementById("typingHeadline");
+            let idx = 0;
+
+            function typeNext() {
+                if (!target) return;
+                if (idx < text.length) {
+                    target.textContent += text.charAt(idx);
+                    idx += 1;
+                    setTimeout(typeNext, 55);
+                }
+            }
+
+            typeNext();
+        })();
+
+        (function networkBackground() {
+            const canvas = document.getElementById("networkCanvas");
+            if (!canvas) return;
+
+            const ctx = canvas.getContext("2d");
+            let width = 0;
+            let height = 0;
+            let points = [];
+            const pointCount = 70;
+            const connectDistance = 140;
+
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+
+            function createPoints() {
+                points = Array.from({ length: pointCount }, () => ({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.45,
+                    vy: (Math.random() - 0.5) * 0.45,
+                }));
+            }
+
+            function draw() {
+                if (!ctx) return;
+                ctx.clearRect(0, 0, width, height);
+
+                for (let i = 0; i < points.length; i += 1) {
+                    const p = points[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0 || p.x > width) p.vx *= -1;
+                    if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, 1.7, 0, Math.PI * 2);
+                    ctx.fillStyle = "rgba(56, 189, 248, 0.8)";
+                    ctx.fill();
+
+                    for (let j = i + 1; j < points.length; j += 1) {
+                        const q = points[j];
+                        const dx = p.x - q.x;
+                        const dy = p.y - q.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+
+                        if (dist < connectDistance) {
+                            const alpha = 1 - dist / connectDistance;
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(q.x, q.y);
+                            ctx.strokeStyle = "rgba(34, 197, 94, " + (alpha * 0.25) + ")";
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                requestAnimationFrame(draw);
+            }
+
+            resize();
+            createPoints();
+            draw();
+            window.addEventListener("resize", () => {
+                resize();
+                createPoints();
+            });
+        })();
+    </script>
 </body>
 </html>

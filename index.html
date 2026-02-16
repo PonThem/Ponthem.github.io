@@ -32,208 +32,213 @@
         };
     </script>
     <style>
-        body {
-            background: #0d1117;
-            color: #e2e8f0;
-        }
-
-        #networkCanvas {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            pointer-events: none;
-            opacity: 0.45;
-        }
-
+        body { background: #0d1117; color: #e2e8f0; }
+        #networkCanvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.45; }
         .glass-card {
-            background: linear-gradient(
-                135deg,
-                rgba(15, 23, 42, 0.65),
-                rgba(2, 132, 199, 0.07)
-            );
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.65), rgba(2, 132, 199, 0.07));
             border: 1px solid rgba(148, 163, 184, 0.2);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
-
-        .terminal-cursor::after {
-            content: "_";
-            color: #22c55e;
-            margin-left: 0.1em;
-            animation: blink 1s steps(2, start) infinite;
-        }
-
-        @keyframes blink {
-            to {
-                visibility: hidden;
-            }
-        }
+        .terminal-cursor::after { content: "_"; color: #22c55e; margin-left: 0.1em; animation: blink 1s steps(2, start) infinite; }
+        @keyframes blink { to { visibility: hidden; } }
+        .section-num { font-size: 0.75em; font-variant-numeric: tabular-nums; color: #38bdf8; }
+        .nav-link { transition: color 0.2s; }
+        .nav-link:hover, .nav-link.active { color: #38bdf8; }
+        .project-card { transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; }
+        .project-card:hover { transform: translateY(-2px); border-color: rgba(56, 189, 248, 0.5); box-shadow: 0 0 30px rgba(56, 189, 248, 0.15); }
     </style>
 </head>
 <body class="font-sans min-h-screen antialiased">
     <canvas id="networkCanvas" aria-hidden="true"></canvas>
 
-    <main class="mx-auto max-w-6xl px-5 py-8 sm:px-8 lg:px-10">
-        <header class="glass-card rounded-3xl p-6 shadow-glass sm:p-10">
-            <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-                <div class="max-w-2xl space-y-5">
-                    <p class="font-mono text-sm uppercase tracking-[0.2em] text-cyberBlue">
-                        Taichung City, Taiwan | Senior SRE & Technical Lead
+    <div class="mx-auto flex max-w-6xl flex-col gap-12 px-5 py-12 lg:flex-row lg:gap-20 lg:px-10">
+        <!-- Sidebar -->
+        <aside class="lg:sticky lg:top-8 lg:h-fit lg:w-48 shrink-0">
+            <a href="#" class="font-mono text-lg font-bold text-slate-100">PG</a>
+            <nav class="mt-8 flex flex-wrap gap-x-6 gap-y-2 lg:flex-col lg:gap-4" aria-label="Main">
+                <a href="#about" class="nav-link text-sm text-slate-400 hover:text-cyan-300">About</a>
+                <a href="#experience" class="nav-link text-sm text-slate-400 hover:text-cyan-300">Experience</a>
+                <a href="#projects" class="nav-link text-sm text-slate-400 hover:text-cyan-300">Projects</a>
+            </nav>
+            <div class="mt-8 flex gap-4">
+                <a href="https://github.com/guopengzhen" target="_blank" rel="noopener noreferrer" class="text-slate-400 transition hover:text-cyan-300" aria-label="GitHub"><i class="fab fa-github text-lg"></i></a>
+                <a href="mailto:pengzhenguo2021@gmail.com" class="text-slate-400 transition hover:text-cyan-300" aria-label="Email"><i class="fas fa-envelope text-lg"></i></a>
+            </div>
+        </aside>
+
+        <!-- Main content -->
+        <main class="min-w-0 flex-1 space-y-24">
+            <!-- Hero -->
+            <header class="space-y-4">
+                <p class="font-mono text-sm text-cyan-400">Taichung City, Taiwan · Senior SRE & Technical Lead</p>
+                <h1 class="font-mono text-3xl font-bold text-slate-100 sm:text-4xl">PENGZHEN GUO</h1>
+                <h2 id="typingHeadline" class="terminal-cursor font-mono text-2xl font-semibold text-slate-200 sm:text-3xl"></h2>
+                <p class="max-w-xl text-slate-400">Senior SRE specializing in Kubernetes, Azure AI, and large-scale infrastructure.</p>
+                <a href="mailto:pengzhenguo2021@gmail.com" class="inline-block rounded border border-cyan-400/50 bg-cyan-400/10 px-6 py-2 font-mono text-sm text-cyan-300 transition hover:border-cyan-300 hover:bg-cyan-400/20">Get in touch</a>
+            </header>
+
+            <!-- About -->
+            <section id="about" class="scroll-mt-24">
+                <h3 class="mb-6 font-mono text-sm font-medium tracking-wide text-cyan-400"><span class="section-num">01. </span>About</h3>
+                <div class="space-y-4 text-slate-300">
+                    <p>
+                        Senior Software Engineer with over 6 years of experience in full-stack development, cloud infrastructure, and technical leadership. Currently serving as an Azure AI Services SRE, ensuring high availability for critical AI modules. Proven track record in leading development teams, designing distributed backend systems (Java/Spring Boot, Node.js), and implementing complex algorithms for AGV and GIS applications.
                     </p>
-                    <h1 class="font-mono text-2xl font-bold text-slate-100 sm:text-3xl">PENGZHEN GUO</h1>
-                    <h2 id="typingHeadline" class="terminal-cursor font-mono text-2xl font-bold leading-tight text-slate-100 sm:text-3xl lg:text-4xl"></h2>
-                    <p class="text-base text-slate-300 sm:text-lg">
-                        Senior SRE specializing in Kubernetes, Azure AI, and large-scale infrastructure.
+                    <p>
+                        Bilingual professional (English B2) capable of cross-border collaboration with US teams. When I'm not managing clusters, I'm watching Chinese animation or analyzing strategies for the AG esports team in Honor of Kings.
                     </p>
-                    <div class="flex flex-wrap items-center gap-4 pt-1">
-                        <a href="mailto:pengzhenguo2021@gmail.com" class="flex items-center gap-2 text-sm text-cyan-300 transition hover:text-cyan-200">
-                            <i class="fas fa-envelope"></i> pengzhenguo2021@gmail.com
-                        </a>
-                        <a href="tel:+886981079526" class="flex items-center gap-2 text-sm text-slate-300 transition hover:text-slate-200">
-                            <i class="fas fa-phone"></i> (+886) 0981-079-526
-                        </a>
+                </div>
+                <p class="mt-6 text-sm text-slate-400">Here are a few technologies I've been working with recently:</p>
+                <ul class="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 font-mono text-sm text-slate-400 sm:grid-cols-3">
+                    <li>Kubernetes</li>
+                    <li>Docker</li>
+                    <li>Java</li>
+                    <li>Python</li>
+                    <li>Azure AI</li>
+                    <li>Terraform</li>
+                    <li>Spring Boot</li>
+                    <li>Node.js</li>
+                    <li>AWS</li>
+                    <li>Vue</li>
+                    <li>NestJS</li>
+                </ul>
+            </section>
+
+            <!-- Experience -->
+            <section id="experience" class="scroll-mt-24">
+                <h3 class="mb-10 font-mono text-sm font-medium tracking-wide text-cyan-400"><span class="section-num">02. </span>Experience</h3>
+                <div class="space-y-8">
+                    <div class="relative pl-6 before:absolute before:left-0 before:top-0 before:h-full before:w-px before:bg-cyan-400/40">
+                        <div class="flex flex-wrap items-baseline justify-between gap-2">
+                            <h4 class="font-semibold text-slate-100">Azure AI Services SRE</h4>
+                            <span class="font-mono text-xs text-slate-500">Dec 2025 – Present</span>
+                        </div>
+                        <p class="mt-1 font-mono text-sm text-cyan-400/90">Confidential (Top 500 Software Services Co.) · Remote</p>
+                        <p class="mt-3 text-sm text-slate-400">Maintain reliability and stability of Azure AI Services clusters. Facilitate cross-functional collaboration with US-based engineering teams for project alignment and incident response.</p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="rounded border border-slate-600/50 bg-slate-800/50 px-2 py-0.5 font-mono text-xs text-slate-400">Kubernetes</span>
+                            <span class="rounded border border-slate-600/50 bg-slate-800/50 px-2 py-0.5 font-mono text-xs text-slate-400">Azure</span>
+                            <span class="rounded border border-slate-600/50 bg-slate-800/50 px-2 py-0.5 font-mono text-xs text-slate-400">SRE</span>
+                        </div>
                     </div>
-                    <div class="flex flex-wrap gap-3 pt-1">
-                        <a href="https://github.com/guopengzhen" target="_blank" rel="noopener noreferrer" class="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-1.5 text-sm text-cyan-300 transition hover:border-cyan-300 hover:bg-cyan-400/20">
-                            <i class="fab fa-github mr-1"></i> GitHub
-                        </a>
-                        <a href="#" class="rounded-full border border-green-400/30 bg-green-400/10 px-4 py-1.5 text-sm text-green-300 transition hover:border-green-300 hover:bg-green-400/20">
-                            Tech Blog
-                        </a>
+                    <div class="relative pl-6 before:absolute before:left-0 before:top-0 before:h-full before:w-px before:bg-cyan-400/40">
+                        <div class="flex flex-wrap items-baseline justify-between gap-2">
+                            <h4 class="font-semibold text-slate-100">Technical Lead & Project Manager</h4>
+                            <span class="font-mono text-xs text-slate-500">Mar 2023 – Dec 2025</span>
+                        </div>
+                        <p class="mt-1 font-mono text-sm text-cyan-400/90">ASNET Technology · Taichung</p>
+                        <p class="mt-3 text-sm text-slate-400">Led a 3-person team, established code frameworks, AWS infrastructure from scratch. Key projects: Pharmaceutical API, AI RAG, Consulting Platform.</p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="rounded border border-slate-600/50 bg-slate-800/50 px-2 py-0.5 font-mono text-xs text-slate-400">Java</span>
+                            <span class="rounded border border-slate-600/50 bg-slate-800/50 px-2 py-0.5 font-mono text-xs text-slate-400">Spring Boot</span>
+                            <span class="rounded border border-slate-600/50 bg-slate-800/50 px-2 py-0.5 font-mono text-xs text-slate-400">AWS</span>
+                        </div>
+                    </div>
+                    <div class="relative pl-6 before:absolute before:left-0 before:top-0 before:h-full before:w-px before:bg-cyan-400/40">
+                        <div class="flex flex-wrap items-baseline justify-between gap-2">
+                            <h4 class="font-semibold text-slate-100">System Development Engineer</h4>
+                            <span class="font-mono text-xs text-slate-500">Jan 2022 – Mar 2023</span>
+                        </div>
+                        <p class="mt-1 font-mono text-sm text-cyan-400/90">Minxin Technology · Taichung</p>
+                        <p class="mt-3 text-sm text-slate-400">Developed GPS/GPX telemetry solutions. Built 3D Web GIS demos with Cesium, Leaflet. Backend with Node.js and Django, PostgreSQL.</p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="rounded border border-slate-600/50 bg-slate-800/50 px-2 py-0.5 font-mono text-xs text-slate-400">Node.js</span>
+                            <span class="rounded border border-slate-600/50 bg-slate-800/50 px-2 py-0.5 font-mono text-xs text-slate-400">Django</span>
+                            <span class="rounded border border-slate-600/50 bg-slate-800/50 px-2 py-0.5 font-mono text-xs text-slate-400">Cesium</span>
+                        </div>
+                    </div>
+                    <div class="relative pl-6 before:absolute before:left-0 before:top-0 before:h-full before:w-px before:bg-cyan-400/40">
+                        <div class="flex flex-wrap items-baseline justify-between gap-2">
+                            <h4 class="font-semibold text-slate-100">Software Engineer (AGV Scheduling)</h4>
+                            <span class="font-mono text-xs text-slate-500">Jan 2021 – Dec 2021</span>
+                        </div>
+                        <p class="mt-1 font-mono text-sm text-cyan-400/90">Hongjiang Technology · Taichung</p>
+                        <p class="mt-3 text-sm text-slate-400">Coded Co-operative A* path-finding algorithms for AGV. Qt simulator for path planning. FamilyMart storage/delivery system with Modbus.</p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="rounded border border-slate-600/50 bg-slate-800/50 px-2 py-0.5 font-mono text-xs text-slate-400">C++</span>
+                            <span class="rounded border border-slate-600/50 bg-slate-800/50 px-2 py-0.5 font-mono text-xs text-slate-400">Qt</span>
+                            <span class="rounded border border-slate-600/50 bg-slate-800/50 px-2 py-0.5 font-mono text-xs text-slate-400">Python</span>
+                        </div>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 gap-3 text-sm text-slate-300 sm:w-[320px]">
-                    <div class="glass-card rounded-2xl p-4">
-                        <p class="font-mono text-cyberGreen">Uptime Focus</p>
-                        <p class="mt-2 text-slate-200">Resilient systems by design</p>
-                    </div>
-                    <div class="glass-card rounded-2xl p-4">
-                        <p class="font-mono text-cyberBlue">AI Infra</p>
-                        <p class="mt-2 text-slate-200">Reliable ML platform delivery</p>
-                    </div>
-                    <div class="glass-card rounded-2xl p-4">
-                        <p class="font-mono text-cyberBlue">Automation</p>
-                        <p class="mt-2 text-slate-200">Build once, scale repeatedly</p>
-                    </div>
-                    <div class="glass-card rounded-2xl p-4">
-                        <p class="font-mono text-cyberGreen">Ops Strategy</p>
-                        <p class="mt-2 text-slate-200">SLO-driven engineering</p>
-                    </div>
+            </section>
+
+            <!-- Projects -->
+            <section id="projects" class="scroll-mt-24">
+                <h3 class="mb-10 font-mono text-sm font-medium tracking-wide text-cyan-400"><span class="section-num">03. </span>Projects</h3>
+                <div class="space-y-6">
+                    <a href="#" class="project-card glass-card group block rounded-lg border border-slate-600/30 p-6">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <h4 class="font-mono text-lg font-semibold text-slate-100">AI RAG Development</h4>
+                            <span class="text-cyan-400 transition group-hover:text-cyan-300"><i class="fas fa-external-link-alt text-sm"></i></span>
+                        </div>
+                        <p class="mt-3 text-sm text-slate-400">Developed Retrieval-Augmented Generation (RAG) AI projects using Java 17, Spring Boot 3, and Vibe Coding (Cursor AI) at ASNET Technology.</p>
+                        <ul class="mt-4 flex flex-wrap gap-2 font-mono text-xs text-slate-500">
+                            <li>Java</li>
+                            <li>Spring Boot 3</li>
+                            <li>Cursor AI</li>
+                        </ul>
+                    </a>
+                    <a href="#" class="project-card glass-card group block rounded-lg border border-slate-600/30 p-6">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <h4 class="font-mono text-lg font-semibold text-slate-100">Pharmaceutical Application</h4>
+                            <span class="text-cyan-400 transition group-hover:text-cyan-300"><i class="fas fa-external-link-alt text-sm"></i></span>
+                        </div>
+                        <p class="mt-3 text-sm text-slate-400">Designed backend APIs and frontend architecture. Implemented complex user/file permission management and delivered new features independently within one week.</p>
+                        <ul class="mt-4 flex flex-wrap gap-2 font-mono text-xs text-slate-500">
+                            <li>Java 8</li>
+                            <li>Spring Boot 2</li>
+                            <li>MySQL</li>
+                        </ul>
+                    </a>
+                    <a href="#" class="project-card glass-card group block rounded-lg border border-slate-600/30 p-6">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <h4 class="font-mono text-lg font-semibold text-slate-100">AGV Path-Finding</h4>
+                            <span class="text-cyan-400 transition group-hover:text-cyan-300"><i class="fas fa-external-link-alt text-sm"></i></span>
+                        </div>
+                        <p class="mt-3 text-sm text-slate-400">Coded Co-operative A* path-finding algorithms from academic papers for Automated Guided Vehicles. Designed Qt simulator for path planning and traffic visualization.</p>
+                        <ul class="mt-4 flex flex-wrap gap-2 font-mono text-xs text-slate-500">
+                            <li>C++</li>
+                            <li>Qt</li>
+                            <li>Python</li>
+                        </ul>
+                    </a>
+                    <a href="#" class="project-card glass-card group block rounded-lg border border-slate-600/30 p-6">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <h4 class="font-mono text-lg font-semibold text-slate-100">AI Game News Agent</h4>
+                            <span class="text-cyan-400 transition group-hover:text-cyan-300"><i class="fas fa-external-link-alt text-sm"></i></span>
+                        </div>
+                        <p class="mt-3 text-sm text-slate-400">A Python-based agent that scrapes and summarizes global game and anime news.</p>
+                        <ul class="mt-4 flex flex-wrap gap-2 font-mono text-xs text-slate-500">
+                            <li>Python</li>
+                        </ul>
+                    </a>
+                    <a href="#" class="project-card glass-card group block rounded-lg border border-slate-600/30 p-6">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <h4 class="font-mono text-lg font-semibold text-slate-100">K8s Cluster Autoscaler</h4>
+                            <span class="text-cyan-400 transition group-hover:text-cyan-300"><i class="fas fa-external-link-alt text-sm"></i></span>
+                        </div>
+                        <p class="mt-3 text-sm text-slate-400">A custom implementation for optimizing cluster resource usage.</p>
+                        <ul class="mt-4 flex flex-wrap gap-2 font-mono text-xs text-slate-500">
+                            <li>Kubernetes</li>
+                            <li>Go</li>
+                        </ul>
+                    </a>
                 </div>
-            </div>
-        </header>
+            </section>
 
-        <section id="about" class="mt-8">
-            <div class="glass-card rounded-3xl p-6 shadow-glass sm:p-8">
-                <h2 class="font-mono text-2xl font-semibold text-cyberBlue sm:text-3xl">About Me</h2>
-                <p class="mt-5 text-slate-300">
-                    Senior Software Engineer with over 6 years of experience in full-stack development, cloud infrastructure, and technical leadership. Currently serving as an Azure AI Services SRE, ensuring high availability for critical AI modules. Proven track record in leading development teams, designing distributed backend systems (Java/Spring Boot, Node.js), and implementing complex algorithms for AGV and GIS applications. Expert in K8s, Java, Spring Boot, and Node.js.
-                </p>
-                <p class="mt-4 text-slate-300">
-                    Bilingual professional (English B2) capable of cross-border collaboration with US teams. When I'm not managing clusters, I'm watching Chinese animation or analyzing strategies for the AG esports team in Honor of Kings.
-                </p>
-            </div>
-        </section>
-
-        <section id="skills" class="mt-8">
-            <div class="glass-card rounded-3xl p-6 shadow-glass sm:p-8">
-                <h2 class="font-mono text-2xl font-semibold text-cyberBlue sm:text-3xl">Skills Grid</h2>
-                <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-                    <div class="group rounded-2xl border border-slate-400/20 bg-slate-900/40 p-4 text-center transition duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:shadow-glowBlue">
-                        <i class="fa-solid fa-dharmachakra text-2xl text-cyan-300 transition group-hover:text-cyan-200"></i>
-                        <p class="mt-2 text-sm text-slate-200">Kubernetes</p>
-                    </div>
-                    <div class="group rounded-2xl border border-slate-400/20 bg-slate-900/40 p-4 text-center transition duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:shadow-glowBlue">
-                        <i class="fa-brands fa-docker text-2xl text-cyan-300 transition group-hover:text-cyan-200"></i>
-                        <p class="mt-2 text-sm text-slate-200">Docker</p>
-                    </div>
-                    <div class="group rounded-2xl border border-slate-400/20 bg-slate-900/40 p-4 text-center transition duration-300 hover:-translate-y-1 hover:border-green-300/60 hover:shadow-glowGreen">
-                        <i class="fa-brands fa-java text-2xl text-green-300 transition group-hover:text-green-200"></i>
-                        <p class="mt-2 text-sm text-slate-200">Java</p>
-                    </div>
-                    <div class="group rounded-2xl border border-slate-400/20 bg-slate-900/40 p-4 text-center transition duration-300 hover:-translate-y-1 hover:border-green-300/60 hover:shadow-glowGreen">
-                        <i class="fa-brands fa-python text-2xl text-green-300 transition group-hover:text-green-200"></i>
-                        <p class="mt-2 text-sm text-slate-200">Python</p>
-                    </div>
-                    <div class="group rounded-2xl border border-slate-400/20 bg-slate-900/40 p-4 text-center transition duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:shadow-glowBlue">
-                        <i class="fa-brands fa-microsoft text-2xl text-cyan-300 transition group-hover:text-cyan-200"></i>
-                        <p class="mt-2 text-sm text-slate-200">Azure</p>
-                    </div>
-                    <div class="group rounded-2xl border border-slate-400/20 bg-slate-900/40 p-4 text-center transition duration-300 hover:-translate-y-1 hover:border-green-300/60 hover:shadow-glowGreen">
-                        <i class="fa-solid fa-layer-group text-2xl text-green-300 transition group-hover:text-green-200"></i>
-                        <p class="mt-2 text-sm text-slate-200">Terraform</p>
-                    </div>
-                    <div class="group rounded-2xl border border-slate-400/20 bg-slate-900/40 p-4 text-center transition duration-300 hover:-translate-y-1 hover:border-green-300/60 hover:shadow-glowGreen">
-                        <i class="fa-solid fa-leaf text-2xl text-green-300 transition group-hover:text-green-200"></i>
-                        <p class="mt-2 text-sm text-slate-200">Spring Boot</p>
-                    </div>
-                    <div class="group rounded-2xl border border-slate-400/20 bg-slate-900/40 p-4 text-center transition duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:shadow-glowBlue">
-                        <i class="fa-brands fa-node-js text-2xl text-cyan-300 transition group-hover:text-cyan-200"></i>
-                        <p class="mt-2 text-sm text-slate-200">Node.js</p>
-                    </div>
-                    <div class="group rounded-2xl border border-slate-400/20 bg-slate-900/40 p-4 text-center transition duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:shadow-glowBlue">
-                        <i class="fa-brands fa-aws text-2xl text-cyan-300 transition group-hover:text-cyan-200"></i>
-                        <p class="mt-2 text-sm text-slate-200">AWS</p>
-                    </div>
-                    <div class="group rounded-2xl border border-slate-400/20 bg-slate-900/40 p-4 text-center transition duration-300 hover:-translate-y-1 hover:border-green-300/60 hover:shadow-glowGreen">
-                        <i class="fa-brands fa-vuejs text-2xl text-green-300 transition group-hover:text-green-200"></i>
-                        <p class="mt-2 text-sm text-slate-200">Vue</p>
-                    </div>
-                    <div class="group rounded-2xl border border-slate-400/20 bg-slate-900/40 p-4 text-center transition duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:shadow-glowBlue">
-                        <i class="fa-brands fa-node-js text-2xl text-cyan-300 transition group-hover:text-cyan-200"></i>
-                        <p class="mt-2 text-sm text-slate-200">NestJS</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" class="mt-8">
-            <div class="glass-card rounded-3xl p-6 shadow-glass sm:p-8">
-                <h2 class="font-mono text-2xl font-semibold text-cyberBlue sm:text-3xl">Projects</h2>
-                <div class="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-                    <article class="rounded-2xl border border-slate-400/20 bg-slate-900/40 p-6 transition duration-300 hover:border-cyan-300/60 hover:shadow-glowBlue">
-                        <h3 class="font-mono text-xl font-semibold text-slate-100">AI RAG Development</h3>
-                        <p class="mt-3 text-slate-300">
-                            Developed Retrieval-Augmented Generation (RAG) AI projects using Java 17, Spring Boot 3, and Vibe Coding (Cursor AI) at ASNET Technology.
-                        </p>
-                        <p class="mt-4 inline-flex rounded-full border border-cyan-300/30 bg-cyan-400/10 px-3 py-1 text-xs uppercase tracking-wide text-cyan-200">
-                            Java • Spring Boot 3 • AI
-                        </p>
-                    </article>
-                    <article class="rounded-2xl border border-slate-400/20 bg-slate-900/40 p-6 transition duration-300 hover:border-green-300/60 hover:shadow-glowGreen">
-                        <h3 class="font-mono text-xl font-semibold text-slate-100">Pharmaceutical Application</h3>
-                        <p class="mt-3 text-slate-300">
-                            Designed backend APIs and frontend architecture. Implemented complex user/file permission management and delivered new features independently within one week.
-                        </p>
-                        <p class="mt-4 inline-flex rounded-full border border-green-300/30 bg-green-400/10 px-3 py-1 text-xs uppercase tracking-wide text-green-200">
-                            Java 8 • Spring Boot 2 • MySQL
-                        </p>
-                    </article>
-                    <article class="rounded-2xl border border-slate-400/20 bg-slate-900/40 p-6 transition duration-300 hover:border-cyan-300/60 hover:shadow-glowBlue">
-                        <h3 class="font-mono text-xl font-semibold text-slate-100">AGV Path-Finding</h3>
-                        <p class="mt-3 text-slate-300">
-                            Coded Co-operative A* path-finding algorithms from academic papers for Automated Guided Vehicles. Designed Qt simulator for path planning and traffic visualization.
-                        </p>
-                        <p class="mt-4 inline-flex rounded-full border border-cyan-300/30 bg-cyan-400/10 px-3 py-1 text-xs uppercase tracking-wide text-cyan-200">
-                            C++ • Qt • Python
-                        </p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <footer class="mt-8 pb-6 text-center text-sm text-slate-400">
-            <p class="font-mono text-slate-500">Built for reliability in production environments.</p>
-            <p class="mt-1">© 2026 Pengzhen Guo · Senior SRE & Technical Lead</p>
-        </footer>
-    </main>
+            <footer class="pt-8 text-center font-mono text-xs text-slate-500">
+                <p>© 2026 Pengzhen Guo · Built for reliability</p>
+            </footer>
+        </main>
+    </div>
 
     <script>
         (function typingEffect() {
             const text = "Engineering Reliability in an AI World.";
             const target = document.getElementById("typingHeadline");
             let idx = 0;
-
             function typeNext() {
                 if (!target) return;
                 if (idx < text.length) {
@@ -242,28 +247,21 @@
                     setTimeout(typeNext, 55);
                 }
             }
-
             typeNext();
         })();
 
         (function networkBackground() {
             const canvas = document.getElementById("networkCanvas");
             if (!canvas) return;
-
             const ctx = canvas.getContext("2d");
-            let width = 0;
-            let height = 0;
-            let points = [];
-            const pointCount = 70;
-            const connectDistance = 140;
-
+            let width = 0, height = 0, points = [];
+            const pointCount = 70, connectDistance = 140;
             function resize() {
                 width = window.innerWidth;
                 height = window.innerHeight;
                 canvas.width = width;
                 canvas.height = height;
             }
-
             function createPoints() {
                 points = Array.from({ length: pointCount }, () => ({
                     x: Math.random() * width,
@@ -272,30 +270,22 @@
                     vy: (Math.random() - 0.5) * 0.45,
                 }));
             }
-
             function draw() {
                 if (!ctx) return;
                 ctx.clearRect(0, 0, width, height);
-
-                for (let i = 0; i < points.length; i += 1) {
+                for (let i = 0; i < points.length; i++) {
                     const p = points[i];
-                    p.x += p.vx;
-                    p.y += p.vy;
-
+                    p.x += p.vx; p.y += p.vy;
                     if (p.x < 0 || p.x > width) p.vx *= -1;
                     if (p.y < 0 || p.y > height) p.vy *= -1;
-
                     ctx.beginPath();
                     ctx.arc(p.x, p.y, 1.7, 0, Math.PI * 2);
                     ctx.fillStyle = "rgba(56, 189, 248, 0.8)";
                     ctx.fill();
-
-                    for (let j = i + 1; j < points.length; j += 1) {
+                    for (let j = i + 1; j < points.length; j++) {
                         const q = points[j];
-                        const dx = p.x - q.x;
-                        const dy = p.y - q.y;
+                        const dx = p.x - q.x, dy = p.y - q.y;
                         const dist = Math.sqrt(dx * dx + dy * dy);
-
                         if (dist < connectDistance) {
                             const alpha = 1 - dist / connectDistance;
                             ctx.beginPath();
@@ -307,17 +297,12 @@
                         }
                     }
                 }
-
                 requestAnimationFrame(draw);
             }
-
             resize();
             createPoints();
             draw();
-            window.addEventListener("resize", () => {
-                resize();
-                createPoints();
-            });
+            window.addEventListener("resize", () => { resize(); createPoints(); });
         })();
     </script>
 </body>
